@@ -50,6 +50,10 @@ mongoose
   .then(() => console.log("MongoDB Connected"))
   .catch((err) => console.error("MongoDB connection error:", err));
 
+app.get("/", (req, res) => {
+  res.send("NewTube backend is running!");
+});
+
 // Signup Route with File Upload
 app.post("/api/signup", upload.single("profilePic"), async (req, res) => {
   const { name, email, password } = req.body;
