@@ -93,7 +93,7 @@ router.get("/videos", async (req, res) => {
     // Attach duration to each video using Promise.all()
     videos = await Promise.all(
       videos.map(async (video) => {
-        const videoPath = path.join(__dirname, "../uploads", video.filename);
+        const videoPath = path.join(videoDir, video.filename);
 
         // Check if file exists
         if (!fs.existsSync(videoPath)) {
@@ -390,7 +390,7 @@ router.get("/search", async (req, res) => {
     // Attach duration to each video using Promise.all()
     videos = await Promise.all(
       videos.map(async (video) => {
-        const videoPath = path.join(__dirname, "../uploads", video.filename);
+        const videoPath = path.join(videoDir, video.filename);
 
         // Check if file exists
         if (!fs.existsSync(videoPath)) {
@@ -623,7 +623,8 @@ router.get("/user/:id/recent", async (req, res) => {
     // Add duration to each video
     videos = await Promise.all(
       videos.map(async (video) => {
-        const videoPath = path.join(__dirname, "../uploads", video.filename);
+        const videoPath = path.join(videoDir, video.filename);
+
         if (fs.existsSync(videoPath)) {
           video = video.toObject(); // convert mongoose doc to plain object to add fields
           video.duration = await getVideoDuration(videoPath);
@@ -678,7 +679,8 @@ router.get("/user/:id/videos", async (req, res) => {
     // Add duration to each video
     videos = await Promise.all(
       videos.map(async (video) => {
-        const videoPath = path.join(__dirname, "../uploads", video.filename);
+        const videoPath = path.join(videoDir, video.filename);
+
         video = video.toObject();
         video.duration = fs.existsSync(videoPath)
           ? await getVideoDuration(videoPath)
