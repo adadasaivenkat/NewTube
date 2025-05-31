@@ -24,8 +24,6 @@ function App() {
   const { theme } = useTheme();
   const userId = localStorage.getItem("userId");
 
-  if (!userId) return <div>Please log in to see your videos.</div>;
-
   useEffect(() => {
     if (theme === "dark") {
       document.documentElement.classList.add("dark");
@@ -42,7 +40,16 @@ function App() {
           <Route path="trending" element={<Trending />} />
           <Route path="subscriptions" element={<Subscriptions />} />
           <Route path="history" element={<History />} />
-          <Route path="/your-videos" element={<Videos userId={userId} />} />
+          <Route
+            path="/your-videos"
+            element={
+              userId ? (
+                <Videos userId={userId} />
+              ) : (
+                <div>Please log in to see your videos.</div>
+              )
+            }
+          />
           <Route path="search" element={<Search />} />
           <Route path="video/:videoId" element={<VideoPage />} />
           <Route path="channel/:id" element={<Channel />} />
