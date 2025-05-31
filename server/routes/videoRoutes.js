@@ -6,11 +6,14 @@ import { fileURLToPath } from "url";
 import { dirname } from "path";
 import Video from "../models/Video.js";
 import ffmpeg from "fluent-ffmpeg";
+import ffmpegPath from "ffmpeg-static";
 import mongoose from "mongoose";
 
 const router = express.Router();
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
+
+ffmpeg.setFfmpegPath(ffmpegPath);
 
 router.get("/videos", async (req, res) => {
   try {
